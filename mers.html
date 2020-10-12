@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Mers</title>
+</head>
+<style>
+  
+  @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@400;700&display=swap');
+
+      html{overflow-x: hidden; width: 100%; height: 650vh;
+   }
+
+   body{padding-left: 30px; margin-right: 10px; background-color:black; color: white;}
+    .head{width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 100px;font-family: 'Black Han Sans', sans-serif; font-size: 200px;}
+
+    .container01{height: 200vh; display: flex;  flex-direction: column; margin-left: 3%; padding-right: 3%; padding-left: 70px; }
+    
+    .root{
+    position: relative;
+    padding: 1%;
+    width:28%;
+    top: 5%;
+    left: 950px;
+    align-items: center;
+  
+    }
+    #roottxt{
+        position: absolute;
+        width: 120%;
+        z-index: 99;
+        color: ;
+        -webkit-animation: rotation1 15s infinite linear;
+    }
+    #rootimg{
+        position: absolute;
+        z-index: 9%;
+        width: 100%;
+        left: 3px;
+    }
+     
+    .textbox{font-size: 20px;font-family: 'Roboto', sans-serif;font-weight: 400;line-height: 1.5;} 
+    
+    #txt01{ font-size: 72px;font-family: 'Noto Sans KR', sans-serif; font-weight:900;}
+    #txt02{width: 1000px;margin-top: 50px; }
+    #middle{position: absolute; width: 900px; top: 1700px; left: 200px;}
+    
+    
+    #bar01{display: inline-block;position: absolute; width: 80%; top: 2300px; margin-bottom: 30px ;
+            animation: transition1 6s infinite;}
+
+    
+    .container02{height: 210vh; display: block; margin-left: 3%; padding-right: 3%; position: relative;}
+    
+    .box3 {
+    position: absolute;
+    left: 0;
+    width: 930px;
+    height: 180px;
+    background-color: white;
+    border: 3px solid black;
+    overflow: hidden;
+    }
+
+    .box3 p{text-align: center;
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 500;
+    margin-top: 14px;
+    font-style: sans-serif;
+    font-size: 140px;
+    color:black;}
+
+    #box3-1{z-index: 30; top:60px;}
+    #box3-2{z-index: 10; top:120px; left: -30px;}
+    #box3-3{z-index: 5; top: 170px; left: -50px;}
+    #img-mers{display:inline-block; position:absolute; top:500px; width: 600px; margin-left: 120px;}
+    #txt03{width: 700px;display: inline-block; position: absolute; top: 550px; left: 800px; font-weight: 700;}
+  
+   
+    .container03{height: 160vh; margin-left: 3%; padding-right: 3%; display: block; position: relative;}
+    .container04{height: 200vh; margin-left: 3%; padding-right: 3%; display: block; position: relative;}
+    
+ 
+
+    @-webkit-keyframes rotation1{
+        from{-webkit-transform: rotate(0deg);}
+        to{-webkit-transform: rotate(360deg);}
+    }
+
+    @keyframes transition1{
+        from{left: 0px;}
+        to{left:2000px}
+    }
+</style>
+
+<body>
+    <canvas id='cvs' style="position: absolute; z-index: -999; width: full;" ></canvas>
+
+    <script>
+    // Get canvas
+    var cvs = document.getElementById('cvs');
+    
+    // Canvas fills window
+    cvs.height = window.innerHeight;
+    cvs.width = window.innerWidth;
+    
+    // Get canvas context
+    var ctx = cvs.getContext('2d');
+    
+    // Set font, size & number of columns
+    var font = 'arial';
+    var fontSize = 10;
+    ctx.font = fontSize + 'px ' + font;
+    var cols = cvs.width / fontSize;
+    
+    // Characters
+    var charSet;
+    charSet = '0123456789ABCDEF'; // Hex
+    charSet = charSet.split(''); // Convert string to array
+    
+    // One drop per column, row set randomly
+    var drops = [];
+    for (var col = 0; col < cols; col++)
+      drops[col] = Math.floor(Math.random() * cvs.height);
+    
+    // Call rain() every 25ms
+    setInterval(rain, 25);
+    
+    function rain() {
+      // Background, black, translucent
+      /* This is key to the fade effect, clear the window with an alpha of 0.05, which doesn't clear it entirely but leaves existing text progressively dimmed with each subsequent call to rain()
+       */
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, cvs.width, cvs.height);
+      
+      // For each column / drop
+      for (var col = 0; col < drops.length; col++) {
+        // Pick a random char
+        var char = charSet[Math.floor(Math.random() * charSet.length)];
+        // Pick a random colour
+        ctx.fillStyle = randColour();
+        // Draw the char
+        ctx.fillText(char, col * fontSize, drops[col] * fontSize);
+        // Randomly reset drop back to top row
+        if (Math.random() > 0.99)
+          drops[col] = 0;
+    
+        drops[col]++; // Move drop down a row
+      }
+    }
+    
+    function randColour()
+    {
+      return'rgb(' + 
+        Math.floor(Math.random() * 255) + ',' + 
+        Math.floor(Math.random() * 0) + ',' + 
+        Math.floor(Math.random() * 100) + ')';
+    }
+    </script>
+    <img src="top.png"  style="left: -20px; top:0; width: 100%; ">
+    <section class="head">
+        <div>MERS-CoV</div><div>메르스</div>
+    </section>
+    <section class="container01">
+        <div id="txt01">중동호흡기 증후군
+            <br>
+            [Middle East PREspiratory Syndrome]
+        </div>
+        <div class="textbox" id="txt02" >2012년 4월부터 사우디아라비아 등 중동 지역을 중심으로 주로 감염자가 발생한 급성 호흡기 감염병이다. 메르스 바이러스는 박쥐가 사우디 아라비아 내 단봉낙타에게로 옮기고 이 낙타와 접촉한 사람에게서 감염이 이루어진것으로 보인다. 우리나라에서는 
+            2015년 5월 첫 감염자가 발생해 186명의 환자가 발생했으며, 이 중 38명이 사망한 바 있다. 이후 2018년 9월 3년 만에 
+            국내에서 메르스 확진자가 발생해 전염 확산 우려를 높였으나, 이후 추가 감염자가 나오지 않으면서 발생 38일 만인 
+            10월 16일 메르스 종료가 선언됐다. 메르스는 일반적으로 사스에 비해 그리 심각하지 않은 예후를 가졌으나, 폐렴을 일으킬 경우 상당히 치명적인 변종이었고, 사스 못지않게 전염성이 상당히 강해 초기 대응이 조금이라도 허술했던 국가에서는 예기치 못한 전염으로 많은 문제를 일으켰다.
+
+            </div>
+          <div class="root">
+              <img src="root.png" id="roottxt" >
+        <img src="bet.png" id="rootimg"></div>
+            
+
+          <img src="img01.jpg" id="middle">
+          <img src="seling.png" id="bar01" style="">
+    </section>
+
+    <section class="container02">
+        <div class="box3" id="box3-1">
+         <p>About Mers</p>>
+        </div>
+        <div class="box3" id="box3-2">
+            <p>About Mers</p>>
+           </div>
+           <div class="box3" id="box3-3">
+            <p>About Mers</p>>
+           </div>
+        <img src="mers.png" id="img-mers" style="">
+        <div class="textbox" id="txt03">
+          <div style="position: absolute;
+          width: 600px;
+          height: 100px;
+          background-color: white;
+          border: 3px solid black;
+          overflow: hidden">
+          
+          <p style="text-align: center;
+          font-family: 'Roboto', sans-serif;
+          font-weight: 700;
+          margin-top: 14px;
+          font-size: 50px;
+          color:black;">메르스?사스?코로나?</p></div>
+          <br><br><br><br><br>
+            MERS-CoV는 코로나 바이러스 중 베타코로나바이러스에 속한다. 정체가 알려지기 전인 발견 초창기에는 같은 베타코로나바이러스속에 속한 SARS-CoV의 유사 바이러스 혹은 그냥 신종 코로나바이러스로 취급받았으나, 2013년 5월 23일에 바이러스 분류학 국제위원회에서 메르스 코로나바이러스라는 공식 명칭을 채택하면서 독자적인 정식 명칭을 갖게 되었다. SARS-CoV와는 임상적으로 비슷하지만 본질적으로는 다른 바이러스로 SARS-CoV-2까지 이 세가지 바이러스는 친척격으로 볼 수 있다.
+            <br><br>
+            코로나 바이러스의 친척 격으로, covid-19와 비슷하게 corona virus에서 악성 변형되어 나타난 것이다. 코로나 바이러스는 
+            일반적으로 감기의 증상으로 나타나는데 거기서 변형된 메르스나 사스는 강한 전염성과 높은 치사율을 보인다. 
+            
+            메르스는 전 세계 총 1598명의 감염자가 나왔고 그 중 610명이 사망하는 높은 치사율을 보이고 있다.
+            
+            그 중 한국이 전세계 감염률 2위라는 오명을 썼고 이때 전국 10여개의 병원이 14일간 ‘코호트 격리’가 실시 되었다.  </div>
+        
+            <img src="deathgra.jpg" style="display: block; position: absolute; left: 110px; top: 1300px; width: 40%;">
+        <img src="death.png" style="display: block; position: absolute; top: 1200px;left: 900px;">      
+        </div>
+    </section>
+
+    <section class="container03">
+        <img src="symtext.png" style="display: inline-block; position: absolute; right: 30px;z-index: 999; top: 60px;">
+        <img src="sym.png" style="display: inline-block; position: absolute; right:30px; z-index: 888;">
+        <img src="sym.png" style="display: inline-block; position: absolute; right: 70px; z-index: 777; top: -20px;">
+        <div style="width: 500px; height:500px;position: absolute; top:300px; left: 20px;z-index: -100; background-color: chartreuse;">
+        <p style="font-size: 50px;; top: 100px;">고열</p></div>
+
+        <div style="width: 500px; height:500px; top:500px;position: absolute; left: 50px;z-index: -10; background-color: chartreuse;">
+        <p style="font-size: 50px;; top: 100px;">고열</p></div>
+
+        <div style="width: 500px; height:500px; top:700px; left: 80px;z-index: 10; position: absolute;background-color: chartreuse;">
+        <p style="font-size: 50px;; top: 100px;">고열</p></div>
+
+        <div style="width: 500px; height:500px; top:300px; left: 700px;position: absolute; z-index: -100; background-color:chocolate">
+        <p style="font-size: 50px;; top: 100px;">고열</p></div>
+        <div style="width: 500px; height:500px; top:500px; left: 730px;z-index: -10;position: absolute; background-color: chocolate;">
+        <p style="font-size: 50px;; top: 100px;">고열</p></div>
+        <div style="width: 500px; height:500px; top:700px; left: 760px;z-index: 10;position: absolute; background-color: chocolate;">
+        <p style="font-size: 50px;; top: 100px;">고열</p></div>
+
+      
+</section>
+        
+    <section class="container04" style="position: relative;">
+        <img src="top.png" style="margin:0; position: absolute; z-index: -99;">
+        <div style="position: absolute; z-index: 99;font-size: 200px; top: 0;">Fake News</div>
+        <div style="width: 700px;position: absolute; height: 350px;border: 5px solid black; top: 200px; left: 850px;  background-color: white;">
+        <p style="text-align: center;
+        font-family: 'Roboto', sans-serif;
+          font-weight: 700;
+        margin-top: 14px;
+
+        font-size: 20px;
+        color:black;">바이러스가 창궐하고 사람들은 혼돈에 빠졌다. 그리고 사람들은 이 혼돈에 대한 정립하기 위해 정보를 찾기 시작한다.
+            이 정보를 얻을 수 있는 수단은 시대에 따라 날로 진화해왔습니다.
+            최근에는 포털 사이트와 SNS를 통한 텍스트 중심의 정보를 넘어 동영상 플랫폼을 통한 영상 콘텐츠까지 아주 빠르게,
+            거의 실시간으로 공유되어지고 있다.
+            그런데, 우리가 접하는 이 수 많은 정보들은 과연 믿을 만한 것일까? 
+            
+            사실과 구분하기 어려운 가짜뉴스들이 전염병처럼 번지면서 혼돈에 혼돈이 더해지고 사회적 혼란이 커지고 있다.
+            내가 가진 정보가 곧 권력이 될 수 있는 시대!
+            
+            지금 이 시점에 어떤 가짜뉴스가 사람들을 현혹하고 있는지, 과연 나는 제대로 알고있는것이 맞는건지 날카롭게 서있어야 한다.</p></div>
+            <div style="width: 500px; height:500px;position: absolute; background-color: darkblue; top: 600px; left: 20px;;"></div>
+            <div style="width: 500px; height:500px;position: absolute;; background-color: darkblue; top: 800px; left: 500px; z-index: 10;"></div>
+            </section>
+ 
+    </section>
+    
+  
+
+</body>
+</html>
